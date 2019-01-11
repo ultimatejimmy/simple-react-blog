@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import CommentList from "./CommentList";
+import { getQueryVariable } from "../utility";
 
 export default class Post extends Component {
 	render() {
 		let postTitle;
-
-		if (this.props.isSingle) {
+		let isSingle = getQueryVariable("post");
+		if (isSingle) {
 			postTitle = <h2>{this.props.title}</h2>;
 		} else {
 			postTitle = (
@@ -31,7 +33,9 @@ export default class Post extends Component {
 					</a>
 				</header>
 				<div className="post-content">{this.props.body}</div>
-				<footer />
+				<footer>
+					<CommentList postId={this.props.id} />
+				</footer>
 			</article>
 		);
 	}
