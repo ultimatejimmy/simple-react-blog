@@ -3,11 +3,28 @@ import CommentList from "./CommentList";
 import { getQueryVariable } from "../utility";
 
 export default class Post extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			isSingle: getQueryVariable("post"),
+			isAuthor: getQueryVariable("author")
+		};
+	}
 	render() {
-		let postTitle;
-		let isSingle = getQueryVariable("post");
-		if (isSingle) {
+		const theComments = this.props.comments.filter(
+			comment => comment.postId === this.props.id
+		);
+		const commentCount = theComments.length;
+
+		let postTitle, postComments;
+		if (this.state.isSingle) {
 			postTitle = <h2>{this.props.title}</h2>;
+			postComments = (
+				<CommentList
+					comments={theComments}
+					commentCount={commentCount}
+				/>
+			);
 		} else {
 			postTitle = (
 				<a href={"?post=" + this.props.id}>
@@ -15,27 +32,25 @@ export default class Post extends Component {
 				</a>
 			);
 		}
-		const postComments = this.props.comments.filter(
-			comment => comment.postId === this.props.id
-		);
-		const commentCount = postComments.length;
+
 		return (
 			<article>
 				<header>
 					{postTitle}
-					<a href={"?author=" + this.props.authorId}>
-						<div className="byline">{this.props.authorName}</div>
-					</a>
-					<a href={"?post=" + this.props.id + "#comments"}>
-						{commentCount +
-							" " +
-							(commentCount === 1 ? "Comment" : "Comments")}
-					</a>
+
+					<div className="byline">
+						<a href={"?author=" + this.props.authorId}>
+							By {this.props.authorName}
+						</a>{" "}
+						|{" "}
+						<a href={"?post=" + this.props.id + "#comments"}>
+							{commentCount +
+								(commentCount === 1 ? " Comment" : " Comments")}
+						</a>
+					</div>
 				</header>
 				<div className="post-content">{this.props.body}</div>
-				<footer>
-					<CommentList postId={this.props.id} />
-				</footer>
+				<footer>{postComments}</footer>
 			</article>
 		);
 	}
