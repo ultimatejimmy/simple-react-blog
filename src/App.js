@@ -7,26 +7,36 @@ class App extends Component {
 		super(props);
 		this.state = {
 			error: null,
-			postsLoaded: false,
+			isLoaded: false,
 			posts: [],
 			users: [],
-			comments: []
+			comments: [],
+			usersLoaded: false,
+			postsLoaded: false,
+			commentsLoaded: false
 		};
 	}
 	componentDidMount() {
-		const apis = ["posts", "users", "comments"];
+		const apis = ["users", "posts", "comments"];
 		const apiURL = "https://jsonplaceholder.typicode.com";
 
-		apis.forEach(value => {
+		apis.forEach((value, index) => {
 			let url = apiURL + "/" + value;
 			fetch(url)
 				.then(res => res.json())
 				.then(
 					result => {
+						let load = value + "Loaded";
 						this.setState({
-							[value]: result
+							[value]: result,
+							[load]: true
 						});
-						if (value === "comments") {
+						console.log();
+						if (
+							this.state.usersLoaded &&
+							this.state.postsLoaded &&
+							this.state.commentsLoaded
+						) {
 							this.setState({
 								isLoaded: true
 							});
@@ -47,7 +57,7 @@ class App extends Component {
 			return <div>Error: {error.message}</div>;
 		} else if (!isLoaded) {
 			return <div>Loading...</div>;
-		} else {
+		} else if (isLoaded) {
 			return (
 				<div className="App">
 					<PostList

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { getQueryVariable } from "../utility";
 
 export default class AuthorInfo extends Component {
+	static defaultProps = {
+		author: {}
+	};
 	render() {
 		const author = this.props.author;
 
@@ -18,7 +20,7 @@ export default class AuthorInfo extends Component {
 				</p>
 				<p>
 					<b>address: </b>
-					<div className="indent">
+					<span className="indent">
 						{author.address.street}
 						<br />
 						{author.address.suite}
@@ -26,7 +28,7 @@ export default class AuthorInfo extends Component {
 						{author.address.city}
 						<br />
 						{author.address.zipcode}
-					</div>
+					</span>
 				</p>
 				<p>
 					<b>phone: </b>
@@ -34,7 +36,7 @@ export default class AuthorInfo extends Component {
 				</p>
 				<p>
 					<b>website: </b>
-					{author.website}
+					<a href={"http://" + author.website}>{author.website}</a>
 				</p>
 				<p>
 					<b>company: </b>
@@ -45,6 +47,7 @@ export default class AuthorInfo extends Component {
 					{author.company.bs}
 					<br />
 				</p>
+				<hr /> <h2>Recent Posts:</h2>
 			</div>
 		);
 	}

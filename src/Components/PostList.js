@@ -37,25 +37,21 @@ export default class PostList extends Component {
 				);
 				author = { ...author };
 
-				if (this.state.isAuthor)
+				if (this.state.isAuthor) {
 					authorInfo = (
-						<div>
-							<AuthorInfo author={author} />
-							<hr /> <h2>Recent Posts:</h2>
-						</div>
+						<AuthorInfo key={author.userId} author={author} />
 					);
+				}
 				return (
-					<div>
-						<Post
-							key={thePost.id}
-							id={thePost.id}
-							title={thePost.title}
-							body={thePost.body}
-							authorId={thePost.userId}
-							authorName={author.name}
-							comments={this.props.comments}
-						/>
-					</div>
+					<Post
+						key={thePost.id}
+						id={thePost.id}
+						title={thePost.title}
+						body={thePost.body}
+						authorId={thePost.userId}
+						authorName={author.name}
+						comments={this.props.comments}
+					/>
 				);
 			});
 		}
