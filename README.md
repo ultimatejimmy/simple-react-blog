@@ -4,4 +4,4 @@ This simple react blog is built with data from https://jsonplaceholder.typicode.
 
 ### Demo
 
-To view the live blog you have your choice of [Now](https://the-placeholder-blog-kuaee5imz.now.sh/) or [Netlify](https://mystifying-ptolemy-e2b4ca.netlify.com/). (I was playing with a couple different deployment methods for fun.)
+To view the live blog you have your choice of [Now](https://the-placeholder-blog-khwvtkiuk.now.sh/) or [Netlify](https://mystifying-ptolemy-e2b4ca.netlify.com/). (I was playing with a couple different deployment methods for fun.)
